@@ -67,5 +67,5 @@ variable "os_disk_size_gb" {
 variable "azurerm_container_registry_name" {
   description = "Name of azure registry "
   type        = string
-  default     = "registry"
+  default     = "mtarekacr1234"
 }

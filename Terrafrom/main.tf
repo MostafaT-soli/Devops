@@ -1,5 +1,5 @@
 locals {
-  name = "Mostafa"
+  name = "micro-application"
   tags = {
     Application = "micro"
     Author      = "Mostafa (Melsayed)"
