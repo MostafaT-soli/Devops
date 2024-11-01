@@ -1,7 +1,7 @@
 ---
 parameters:
   - name: registryConfigName
-    default: mostafa-acr
+    default: mtarekacr1234
   - name: repoName
     default: micro
   - name: dockerfile
