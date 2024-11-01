@@ -1,3 +1,22 @@
+variable "subscription_id" {
+  description = "The Azure subscription ID"
+  type        = string
+}
+
+variable "client_id" {
+  description = "The Azure client ID for the service principal"
+  type        = string
+}
+
+variable "client_secret" {
+  description = "The Azure client secret for the service principal"
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "The Azure tenant ID for the service principal"
+  type        = string
+}
 variable "kube_version" {
   description = "Spesify kubernetes version"
   type        = string
