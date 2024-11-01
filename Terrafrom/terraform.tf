@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      # version = "4.7.0"
+      version = ">= 3.106.1, < 4.0"
     }
   }
 }
@@ -17,8 +17,4 @@ provider "azurerm" {
       delete_os_disk_on_deletion = true
     }
   }
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id 
 }
