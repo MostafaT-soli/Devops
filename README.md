@@ -41,31 +41,42 @@ az login
 
 ---
 
-## AKS prepration 
+## AKS Preparation
 
-Once AKS is deployed , login into AKS and proceed with the following steps:
+Once AKS is deployed, log in to AKS and proceed with the following steps:
 
-1. deploy nginx ingress controller 
+1. Deploy nginx ingress controller
 
-`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml`
-
-3. create a prod namespace
-
-`kubectl create ns prod`
-
-2. create a certfciate and add it to a secret for ingress 
 ```bash
-openssl.exe req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.crt -subj "/CN=micro.mostafa.com" -addext "subjectAltName = DNS:micro.mostafa.com,DNS:www.micro.mostafa.com"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
+```
+
+2. Create a prod namespace
+
+```bash
+kubectl create ns prod
+```
+
+3. Create a certificate and add it to a secret for ingress
+
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.crt -subj "/CN=micro.mostafa.com" -addext "subjectAltName = DNS:micro.mostafa.com,DNS:www.micro.mostafa.com"
 kubectl create secret tls my-tls-secret --key mykey.key --cert mycert.crt -n prod
 ```
-3. create an image pull secrete 
-First loin inot the acr and show the crentials using az command 
+
+4. Create an image pull secret
+
+First, log into the ACR and show the credentials using the Azure CLI command
+
 ```bash
 az acr login --name <acr_name>
 az acr credential show --name <acr_name>
 ```
-Create a json file from the provided credntials as an example 
-```{
+
+Create a JSON file from the provided credentials as an example
+
+```json
+{
   "auths": {
     "your-registry": {
       "username": "your-username",
@@ -75,4 +86,10 @@ Create a json file from the provided credntials as an example
     }
   }
 }
+```
+
+Create the image pull secret referencing the above JSON file
+
+```bash
+kubectl create secret generic azure-acr-secret --from-file=.dockerconfigjson=.json --type=kubernetes.io/dockerconfigjson -n prod
 ```
