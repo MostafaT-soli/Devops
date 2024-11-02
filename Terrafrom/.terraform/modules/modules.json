@@ -1,1 +1,0 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"aks","Source":"registry.terraform.io/Azure/aks/azurerm","Version":"9.1.0","Dir":".terraform/modules/aks"},{"Key":"network","Source":"registry.terraform.io/Azure/subnets/azurerm","Version":"1.0.0","Dir":".terraform/modules/network"}]}
