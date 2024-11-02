@@ -108,3 +108,5 @@ kubectl create secret generic azure-acr-secret --from-file=.dockerconfigjson=.js
    - Kubernetes service connection: To enable Azure DevOps to connect to the Kubernetes server.
 
 3. Create a new pipeline and select an existing YAML file, referencing the `pipeline.yml` file under the `AZ-pipeline` folder.
+
+### Any changes to the Microservices repository will trigger the build and deploy pipeline.
