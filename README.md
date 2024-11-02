@@ -48,8 +48,11 @@ Once AKS is deployed , login into AKS and proceed with the following steps:
 1. deploy nginx ingress controller 
 
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml`
+
 3. create a prod namespace
+
 `kubectl create ns prod`
+
 2. create a certfciate and add it to a secret for ingress 
 ```bash
 openssl.exe req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.crt -subj "/CN=micro.mostafa.com" -addext "subjectAltName = DNS:micro.mostafa.com,DNS:www.micro.mostafa.com"
