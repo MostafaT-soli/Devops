@@ -18,7 +18,6 @@ This documentation covers the architecture and deployment of Azure Pipeline for 
 
 4. Container Registry: To upload the containerized application.
 
----
 
 ### Terraform Deployment Requirements
 
@@ -28,14 +27,49 @@ This documentation covers the architecture and deployment of Azure Pipeline for 
 ```bash
 az login
 ```
-* Create a `terraform.tfvars` file in your local repository and add an `ssh_key_path` variable referencing the public key file.
+* Create a `terraform.tfvars` file in your local repository and add an `ssh_key_path` variable referencing a  public key file.
 
-### Terrafrom commands requienmnts 
+### Terraform Commands Requirements
 
-1. Go to the terrafrom directory 
+1. Go to the Terraform directory.
 
-2. `terrafrom init` to downlaod modules 
+2. Run `terraform init` to download modules.
 
-3. `terrafrom plan` to create a plan 
+3. Run `terraform plan` to create a plan.
 
-4. `terrafrom apply` to apply such plan 
+4. Run `terraform apply` to apply such plan.
+
+---
+
+## AKS prepration 
+
+Once AKS is deployed , login into AKS and proceed with the following steps:
+
+1. deploy nginx ingress controller 
+
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml`
+3. create a prod namespace
+`kubectl create ns prod`
+2. create a certfciate and add it to a secret for ingress 
+```bash
+openssl.exe req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.crt -subj "/CN=micro.mostafa.com" -addext "subjectAltName = DNS:micro.mostafa.com,DNS:www.micro.mostafa.com"
+kubectl create secret tls my-tls-secret --key mykey.key --cert mycert.crt -n prod
+```
+3. create an image pull secrete 
+First loin inot the acr and show the crentials using az command 
+```bash
+az acr login --name <acr_name>
+az acr credential show --name <acr_name>
+```
+Create a json file from the provided credntials as an example 
+```{
+  "auths": {
+    "your-registry": {
+      "username": "your-username",
+      "password": "your-password",
+      "email": "your-email",
+      "auth": "base64-encoded-auth-info"
+    }
+  }
+}
+```
