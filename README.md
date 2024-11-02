@@ -95,3 +95,14 @@ kubectl create secret generic azure-acr-secret --from-file=.dockerconfigjson=.js
 ```
 
 ----
+
+## Pipeline Preparation
+
+1. Import this repository 'Devops' and the 'Microservices' repository in the same organization in the same project in Azure DevOps Repos.
+
+2. Create two service connections to make Azure DevOps connect to AKS and ACR.
+
+   > These service connections are referenced in the variables.yml under the `AZ-pipeline` folder.
+
+   - A Docker Registry: To make Azure DevOps connect to the ACR, I have used basic authentication.
+   - Kubernetes service connection: To make Azure DevOps connect to the Kubernetes server.
