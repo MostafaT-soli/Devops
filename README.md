@@ -28,7 +28,7 @@ This documentation covers the architecture and deployment of Azure Pipeline for 
 ```bash
 az login
 ```
-* Create a terraform.tfvars on your local repo and add a `ssh_key_path` variable refrancing the public key file
+* Create a `terraform.tfvars` file in your local repository and add an `ssh_key_path` variable referencing the public key file.
 
 ### Terrafrom commands requienmnts 
 
