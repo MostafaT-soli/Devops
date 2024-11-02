@@ -28,6 +28,7 @@ Azure CLI (az command) must be installed and logged into Azure Cloud.
 
 ```bash
 az login
+```
 
 ### Terrafrom commands requienmnts 
 
