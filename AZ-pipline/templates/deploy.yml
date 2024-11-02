@@ -1,0 +1,42 @@
+---
+parameters:
+  - name: kubernetesServiceConnection
+    default: mostafa-aks
+  - name: namespace
+    default: micro
+  - name: containerReg
+    default: mostafa.azurecr.io
+  - name: imageRepo
+    default: micro
+  - name: imagePullSecret
+    default: regcred
+steps:
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        sed -i 's/{{VERSION_TO_BE_REPLACED}}/$(VERSION)/g' $(System.DefaultWorkingDirectory)/k8s/deployment.yaml
+
+  - task: KubernetesManifest@1
+    displayName: Deploy
+    inputs:
+      action: deploy
+      connectionType: kubernetesServiceConnection
+      kubernetesServiceConnection: ${{ parameters.kubernetesServiceConnection }}
+      namespace: ${{ parameters.namespace }}
+      manifests: |
+        $(System.DefaultWorkingDirectory)/k8s/deployment.yaml
+        $(System.DefaultWorkingDirectory)/k8s/ingress.yaml
+      containers: ${{ parameters.containerReg }}/${{ parameters.imageRepo }}:$(VERSION)
+      imagePullSecrets: $(imagePullSecret)
+ 
+  - task: KubernetesManifest@1
+    displayName: ingress
+    inputs:
+      action: deploy
+      connectionType: kubernetesServiceConnection
+      kubernetesServiceConnection: ${{ parameters.kubernetesServiceConnection }}
+      namespace: ${{ parameters.namespace }}
+      manifests: |
+        $(System.DefaultWorkingDirectory)/k8s/ingress.yaml

@@ -1,0 +1,19 @@
+---
+parameters:
+  - name: registryConfigName
+    default: mtarekacr1234
+  - name: repoName
+    default: micro
+  - name: dockerfile
+    default: 'Microservices/Dockerfile'
+steps:
+  - script: ls -l
+    displayName: 'Testing'
+  - task: Docker@2
+    displayName: Docker Build
+    inputs:
+      containerRegistry: ${{ parameters.registryConfigName }}
+      repository: ${{ parameters.repoName }}
+      command: buildAndPush
+      Dockerfile: ${{ parameters.dockerfile }}
+      tags: $(VERSION)
