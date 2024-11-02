@@ -93,3 +93,5 @@ Create the image pull secret referencing the above JSON file
 ```bash
 kubectl create secret generic azure-acr-secret --from-file=.dockerconfigjson=.json --type=kubernetes.io/dockerconfigjson -n prod
 ```
+
+----
