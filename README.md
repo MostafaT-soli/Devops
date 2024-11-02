@@ -12,13 +12,13 @@ This documentation covers the architecture and deployment of Azure Pipline for a
 
 ### Terrafrom will deploy the following :
 
-    1. Reasource Group : that will contains all the below resources 
+1. Reasource Group : that will contains all the below resources 
 
-    2. AKS Clsuter : Which will host the microservcie application 
+2. AKS Clsuter : Which will host the microservcie application 
 
-    3. Virtual network and subnet : for pod netwrok communcation 
+3. Virtual network and subnet : for pod netwrok communcation 
 
-    4. Container registry : to upload the conatirzed application 
+4. Container registry : to upload the conatirzed application 
 ---
 
 ### Terrafrom deployment requienmnts 
